@@ -11,6 +11,7 @@ function Calculator() {
 
   const inputArray = input.toString().split(" ");
   const indexLastArrayItem = inputArray.length - 1;
+  const operator = ["/", "+", "-", "*"];
 
   // handleClick event for input
 
@@ -78,8 +79,6 @@ function Calculator() {
     setInput("");
   }, [result]);
 
-  const operator = ["/", "+", "-", "*"];
-
   return (
     <div className="calculatorContainer">
       <div className="calculatorScreen">
@@ -96,7 +95,7 @@ function Calculator() {
           name=" / "
           className="button"
           onClick={handleClick}
-          disabled={operator.includes(input.toString().slice(-1))}
+          disabled={operator.includes(input.toString().slice(-2, -1)[0])}
         >
           ÷
         </button>
@@ -128,7 +127,7 @@ function Calculator() {
           name=" * "
           className="button"
           onClick={handleClick}
-          disabled={operator.includes(input.toString().slice(-1))}
+          disabled={operator.includes(input.toString().slice(-2, -1)[0])}
         >
           x
         </button>
@@ -160,7 +159,7 @@ function Calculator() {
           name=" - "
           className="button"
           onClick={handleClick}
-          disabled={operator.includes(input.toString().slice(-1))}
+          disabled={operator.includes(input.toString().slice(-2, -1)[0])}
         >
           -
         </button>
@@ -192,7 +191,7 @@ function Calculator() {
           name=" + "
           className="button"
           onClick={handleClick}
-          disabled={operator.includes(input.toString().slice(-1))}
+          disabled={operator.includes(input.toString().slice(-2, -1)[0])}
         >
           +
         </button>
