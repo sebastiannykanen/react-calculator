@@ -50,7 +50,7 @@ function Calculator() {
     } else {
       setDisableDot(false);
     }
-  }, [input]);
+  }, [inputArray]);
 
   //disables 0 button when array starts with a 0
 
@@ -60,7 +60,7 @@ function Calculator() {
     } else {
       setDisableZero(false);
     }
-  });
+  }, [inputArray]);
 
   // disables all numbers when array starts with a 0
 
@@ -70,7 +70,7 @@ function Calculator() {
     } else {
       setDisableNumbers(false);
     }
-  });
+  }, [inputArray]);
 
   // when result is updated input is cleared
 

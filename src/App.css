@@ -67,6 +67,18 @@ button {
   .App {
     background-position: 47%;
   }
+
+  .calculatorScreen {
+    font-size: 2.5rem;
+  }
+
+  .button {
+    font-size: 1.5rem;
+  }
+
+  .span-2 {
+    font-size: 1.5rem;
+  }
 }
 
 @media only screen and (max-width: 500px) {
