@@ -123,7 +123,7 @@ function Calculator() {
     } else {
       setDisableOperator(false);
     }
-  }, [inputArray, indexLastArrayItem]);
+  }, [inputArray, indexLastArrayItem, input, operator]);
 
   // when result is updated input is cleared
 
