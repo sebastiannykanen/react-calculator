@@ -12,9 +12,6 @@ function Calculator() {
 
   const inputArray = input.toString().split(" ");
   const indexLastArrayItem = inputArray.length - 1;
-  const operator = ["/", "+", " - ", "*"];
-
-  console.log(inputArray.slice(-1).length);
 
   // handleClick event for input
 
@@ -115,6 +112,7 @@ function Calculator() {
   // disables all numbers when array starts with a 0
 
   useEffect(() => {
+    const operator = ["/", "+", " - ", "*"];
     if (
       operator.includes(input.toString().slice(-2, -1)[0]) ||
       inputArray[indexLastArrayItem] === ""
@@ -123,7 +121,7 @@ function Calculator() {
     } else {
       setDisableOperator(false);
     }
-  }, [inputArray, indexLastArrayItem, input, operator]);
+  }, [inputArray, indexLastArrayItem, input]);
 
   // when result is updated input is cleared
 
