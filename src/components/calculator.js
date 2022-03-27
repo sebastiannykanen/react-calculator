@@ -3,20 +3,59 @@ import Mexp from "math-expression-evaluator";
 import { round } from "mathjs";
 
 function Calculator() {
-  const [input, setInput] = useState([]);
+  const [input, setInput] = useState("");
   const [result, setResult] = useState("");
   const [disableDot, setDisableDot] = useState(false); // disables . button when array item already has a . in it
   const [disableZero, setDisableZero] = useState(false); //disables 0 button when array starts with a 0
   const [disableNumbers, setDisableNumbers] = useState(false); // disables all numbers when array starts with a 0
+  const [disableOperator, setDisableOperator] = useState(false);
 
   const inputArray = input.toString().split(" ");
   const indexLastArrayItem = inputArray.length - 1;
-  const operator = ["/", "+", "-", "*"];
+  const operator = ["/", "+", " - ", "*"];
+
+  console.log(inputArray.slice(-1).length);
 
   // handleClick event for input
 
   const handleClick = (e) => {
     setInput(input + e.target.name);
+  };
+
+  // +/-
+
+  const oppositeInput = () => {
+    if (
+      inputArray[inputArray.length - 3] === "-" &&
+      inputArray[inputArray.length - 2] === "-"
+    ) {
+      inputArray.splice(inputArray.length - 2, 1);
+    } else if (
+      inputArray[inputArray.length - 3] === "+" &&
+      inputArray[inputArray.length - 2] === "-"
+    ) {
+      inputArray.splice(inputArray.length - 2, 1);
+    } else if (
+      inputArray[inputArray.length - 3] === "/" &&
+      inputArray[inputArray.length - 2] === "-"
+    ) {
+      inputArray.splice(inputArray.length - 2, 1);
+    } else if (
+      inputArray[inputArray.length - 3] === "*" &&
+      inputArray[inputArray.length - 2] === "-"
+    ) {
+      inputArray.splice(inputArray.length - 2, 1);
+    } else if (inputArray[0] === "-" && inputArray.length === 2) {
+      inputArray.splice(inputArray.length - 2, 1);
+    } else {
+      inputArray.splice(
+        indexLastArrayItem,
+        1,
+        "-",
+        inputArray[indexLastArrayItem]
+      );
+    }
+    setInput(inputArray.join(" "));
   };
 
   // clears input
@@ -73,6 +112,19 @@ function Calculator() {
     }
   }, [inputArray, indexLastArrayItem]);
 
+  // disables all numbers when array starts with a 0
+
+  useEffect(() => {
+    if (
+      operator.includes(input.toString().slice(-2, -1)[0]) ||
+      inputArray[indexLastArrayItem] === ""
+    ) {
+      setDisableOperator(true);
+    } else {
+      setDisableOperator(false);
+    }
+  }, [inputArray, indexLastArrayItem]);
+
   // when result is updated input is cleared
 
   useEffect(() => {
@@ -85,17 +137,20 @@ function Calculator() {
         <p className="result">{input ? input : round(result, 4)}</p>
       </div>
       <div className="calculatorButtons">
-        <button name="C" className="span-2" onClick={clear}>
+        <button name="C" className="button" onClick={clear}>
           C
         </button>
         <button name="CE" className="button" onClick={erase}>
           CE
         </button>
+        <button name="+/-" className="button" onClick={oppositeInput}>
+          +/-
+        </button>
         <button
           name=" / "
           className="button"
           onClick={handleClick}
-          disabled={operator.includes(input.toString().slice(-2, -1)[0])}
+          disabled={disableOperator}
         >
           ÷
         </button>
@@ -127,7 +182,7 @@ function Calculator() {
           name=" * "
           className="button"
           onClick={handleClick}
-          disabled={operator.includes(input.toString().slice(-2, -1)[0])}
+          disabled={disableOperator}
         >
           x
         </button>
@@ -159,7 +214,7 @@ function Calculator() {
           name=" - "
           className="button"
           onClick={handleClick}
-          disabled={operator.includes(input.toString().slice(-2, -1)[0])}
+          disabled={disableOperator}
         >
           -
         </button>
@@ -191,7 +246,7 @@ function Calculator() {
           name=" + "
           className="button"
           onClick={handleClick}
-          disabled={operator.includes(input.toString().slice(-2, -1)[0])}
+          disabled={disableOperator}
         >
           +
         </button>
