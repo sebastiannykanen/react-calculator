@@ -3,7 +3,7 @@ import Mexp from "math-expression-evaluator";
 import { round } from "mathjs";
 
 function Calculator() {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState([]);
   const [result, setResult] = useState("");
   const [disableDot, setDisableDot] = useState(false); // disables . button when array item already has a . in it
   const [disableZero, setDisableZero] = useState(false); //disables 0 button when array starts with a 0
@@ -112,10 +112,10 @@ function Calculator() {
   // disables all numbers when array starts with a 0
 
   useEffect(() => {
-    const operator = ["/", "+", " - ", "*"];
+    const operator = ["/", "+", "-", "*"];
     if (
       operator.includes(input.toString().slice(-2, -1)[0]) ||
-      inputArray[indexLastArrayItem] === ""
+      inputArray[0].length === 0
     ) {
       setDisableOperator(true);
     } else {
@@ -132,7 +132,7 @@ function Calculator() {
   return (
     <div className="calculatorContainer">
       <div className="calculatorScreen">
-        <p className="result">{input ? input : round(result, 4)}</p>
+        <p className="result">{input ? input : round(result, 10)}</p>
       </div>
       <div className="calculatorButtons">
         <button name="C" className="button" onClick={clear}>
