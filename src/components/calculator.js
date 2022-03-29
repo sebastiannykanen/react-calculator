@@ -132,7 +132,7 @@ function Calculator() {
   return (
     <div className="calculatorContainer">
       <div className="calculatorScreen">
-        <p className="result">{input ? input : round(result, 10)}</p>
+        <p className="result">{input ? input : round(result, 11)}</p>
       </div>
       <div className="calculatorButtons">
         <button name="C" className="button" onClick={clear}>
